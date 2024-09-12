@@ -16,13 +16,8 @@ with zipfile.ZipFile(output, 'r') as zip_ref:
 # Title of the app
 st.title("🎮Steam Games Recommender🎮")
 
-#Google drive link
-url = 'https://drive.google.com/uc?export=download&id=1poydYew2cPAJpQMPTePRQH5_8SXTVcGnCOkfk6B_gnU'
-output = 'dataset.zip'  # or the appropriate file name
-gdown.download(url, output, quiet=False)
-
 # Load the dataset (assuming the dataset is locally available or use st.file_uploader() for user upload)
-path = 'games.csv'
+path = '/kaggle/input/steam-games-complete-dataset/steam_games.csv'
 column_names = ['url', 'types', 'name', 'desc_snippet', 'recent_reviews', 'all_reviews', 'release_date', 'developer', 'publisher', 'popular_tags', 'game_details', 'languages', 'achievements', 'genre', 'game_description', 'mature_content', 'minimum_requirements', 'recommended_requirements', 'original_price']
 df = pd.read_csv(path, names=column_names, low_memory=True)
 
