@@ -1,17 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import gdown
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
-import os
-if not os.path.exists(output):
-    gdown.download(url, output, quiet=False)
-    
-import zipfile
-with zipfile.ZipFile(output, 'r') as zip_ref:
-    zip_ref.extractall()
 
 # Title of the app
 st.title("🎮Steam Games Recommender🎮")
