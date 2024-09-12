@@ -5,11 +5,18 @@ import gdown
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+import os
+if not os.path.exists(output):
+    gdown.download(url, output, quiet=False)
+    
+import zipfile
+with zipfile.ZipFile(output, 'r') as zip_ref:
+    zip_ref.extractall()
+
 # Title of the app
 st.title("🎮Steam Games Recommender🎮")
 
 #Google drive link
-
 url = 'https://drive.google.com/uc?export=download&id=1poydYew2cPAJpQMPTePRQH5_8SXTVcGnCOkfk6B_gnU'
 output = 'dataset.zip'  # or the appropriate file name
 gdown.download(url, output, quiet=False)
