@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import gdown
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -8,7 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 st.title("🎮Steam Games Recommender🎮")
 
 #Google drive link
-url = 'https://drive.google.com/uc?export=download&id=FILE_ID'
+url = 'https://docs.google.com/spreadsheets/d/1poydYew2cPAJpQMPTePRQH5_8SXTVcGnCOkfk6B_gnU/uc?export=download&id=FILE_ID'
 output = 'dataset.zip'  # or the appropriate file name
 gdown.download(url, output, quiet=False)
 
