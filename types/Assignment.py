@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Title of the app
-st.title("Steam Game Recommender")
+st.title("🎮Steam Games Recommender🎮")
 
 #Google drive link
 url = 'https://drive.google.com/uc?export=download&id=FILE_ID'
