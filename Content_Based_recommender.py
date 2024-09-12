@@ -1,8 +1,13 @@
 import numpy as np
 import pandas as pd
+import gdown
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
+url = 'https://drive.google.com/uc?export=download&id=FILE_ID'
+output = 'dataset.zip'  # or the appropriate file name
+gdown.download(url, output, quiet=False)
 
 path = 'games.csv'
 column_names = ['url', 'types', 'name', 'desc_snippet', 'recent_reviews', 'all_reviews', 'release_date', 'developer', 'publisher', 'popular_tags', 'game_details', 'languages', 'achievements', 'genre', 'game_description', 'mature_content', 'minimum_requirements', 'recommended_requirements', 'original_price']
