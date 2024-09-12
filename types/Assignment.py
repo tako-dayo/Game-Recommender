@@ -9,7 +9,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 st.title("🎮Steam Games Recommender🎮")
 
 #Google drive link
-url = 'https://docs.google.com/spreadsheets/d/1poydYew2cPAJpQMPTePRQH5_8SXTVcGnCOkfk6B_gnU/uc?export=download&id=FILE_ID'
+
+url = 'https://drive.google.com/uc?export=download&id=1poydYew2cPAJpQMPTePRQH5_8SXTVcGnCOkfk6B_gnU'
 output = 'dataset.zip'  # or the appropriate file name
 gdown.download(url, output, quiet=False)
 
