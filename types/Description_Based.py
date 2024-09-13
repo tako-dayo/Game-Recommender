@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import difflib
 
@@ -55,18 +55,24 @@ if game:
     if closest_game:
         st.write(f"The closest match found is: '{closest_game}'")
 
-        game_index = indices[closest_game]
+        game_index = indices.get(closest_game, None)
 
-        # Calculate similarity scores for the closest game
-        sim_scores = pd.DataFrame(cosine_sim[game_index], columns=["score"])
+        if game_index is not None:
+            # Calculate similarity scores for the closest game
+            sim_scores = pd.DataFrame(cosine_sim[game_index], columns=["score"])
 
-        # Get the top 10 similar games (excluding the input game itself)
-        game_indices = sim_scores.sort_values("score", ascending=False)[1:11].index
+            # Get the top 10 similar games (excluding the input game itself)
+            game_indices = sim_scores.sort_values("score", ascending=False)[1:11].index
 
-        # Display the recommended games
-        st.write(f"Since you searched for '{closest_game}', here are some similar games:")
-        st.table(pd.DataFrame(df2.loc[game_indices, ['name', 'original_price']].values, columns=["name", "original_price"]))
-
+            # Check if game_indices are valid before accessing
+            if not game_indices.empty:
+                similar_games = df2.loc[game_indices, ['name', 'original_price']]
+                st.write(f"Since you searched for '{closest_game}', here are some similar games:")
+                st.table(similar_games)
+            else:
+                st.write(f"Sorry, no similar games found.")
+        else:
+            st.write(f"Error: The closest game index was not found in the DataFrame.")
     else:
         # If no difflib match is found, use token-based matching
         st.write(f"No exact match for '{game}', trying to find similar games using token-based matching...")
@@ -75,19 +81,24 @@ if game:
         if closest_game:
             st.write(f"Did you mean '{closest_game}'?")
 
-            game_index = indices[closest_game]
+            game_index = indices.get(closest_game, None)
 
-            # Calculate similarity scores for the closest game
-            sim_scores = pd.DataFrame(cosine_sim[game_index], columns=["score"])
+            if game_index is not None:
+                # Calculate similarity scores for the closest game
+                sim_scores = pd.DataFrame(cosine_sim[game_index], columns=["score"])
 
-            # Get the top 10 similar games
-            game_indices = sim_scores.sort_values("score", ascending=False)[1:11].index
+                # Get the top 10 similar games
+                game_indices = sim_scores.sort_values("score", ascending=False)[1:11].index
 
-            # Display the recommended games
-            st.write(f"Since you searched for '{closest_game}', here are some similar games:")
-            st.table(pd.DataFrame(df2.loc[game_indices, ['name', 'original_price']].values, columns=["name", "original_price"]))
-
-
+                # Check if game_indices are valid before accessing
+                if not game_indices.empty:
+                    similar_games = df2.loc[game_indices, ['name', 'original_price']]
+                    st.write(f"Since you searched for '{closest_game}', here are some similar games:")
+                    st.table(similar_games)
+                else:
+                    st.write(f"Sorry, no similar games found.")
+            else:
+                st.write(f"Error: The closest game index was not found in the DataFrame.")
         else:
             st.write(f"Sorry, no similar game was found in the dataset.")
 
