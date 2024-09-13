@@ -90,5 +90,5 @@ if game:
             st.write(f"Sorry, no similar game was found in the dataset.")
 
 # Streamlit app
-st.title("🎮Steam Games Recommender🎮")
-st.write("🔎 Find out which game best suits you now 🔎")
+st.title("🎮Description Based Recommender🎮")
+st.write("🔎 Find similar games for you based on their description 🔎")
