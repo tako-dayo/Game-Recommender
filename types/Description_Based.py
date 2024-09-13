@@ -65,7 +65,7 @@ if game:
 
         # Display the recommended games
         st.write(f"Since you searched for '{closest_game}', here are some similar games:")
-        st.table(pd.DataFrame(df2.loc[game_indices, ['name', 'original_price']].values, columns=["name", "price"]))
+        st.table(pd.DataFrame(df2.loc[game_indices, ['name', 'original_price']].values, columns=["name", "original_price"]))
 
     else:
         # If no difflib match is found, use token-based matching
@@ -85,7 +85,7 @@ if game:
 
             # Display the recommended games
             st.write(f"Since you searched for '{closest_game}', here are some similar games:")
-            st.table(pd.DataFrame(df2.loc[game_indices, ['name', 'original_price']].values, columns=["name", "price"]))
+            st.table(pd.DataFrame(df2.loc[game_indices, ['name', 'original_price']].values, columns=["name", "original_price"]))
 
 
         else:
