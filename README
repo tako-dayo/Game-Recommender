@@ -10,4 +10,4 @@ https://docs.google.com/spreadsheets/d/1poydYew2cPAJpQMPTePRQH5_8SXTVcGnCOkfk6B_
 https://www.kaggle.com/datasets/trolukovich/steam-games-complete-dataset
 
 
-To use the recommender, simply lauch it in streamlit and select from the 3 preset attributes-based recommender. 
+To use the recommender, simply lauch the "recommender_homepage" file in streamlit and select from the 3 preset attributes-based recommender. 
