@@ -89,10 +89,6 @@ if game:
         else:
             st.write(f"Sorry, no similar game was found in the dataset.")
 
-
-if __name__ == "__main__":
-    main()
-
 # Streamlit app
 st.title("🎮Steam Games Recommender🎮")
 st.write("🔎 Find out which game best suits you now 🔎")
