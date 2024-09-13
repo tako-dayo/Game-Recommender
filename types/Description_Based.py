@@ -65,7 +65,7 @@ if game:
 
         # Display the recommended games
         st.write(f"Since you searched for '{closest_game}', here are some similar games:")
-        st.write(df2["name"])
+        st.write(df2["name"].iloc[game_indices])
         #st.table(df2["name"].iloc[game_indices])
 
     else:
