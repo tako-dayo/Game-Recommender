@@ -76,6 +76,10 @@ if game:
         # Reset the index to remove the original index numbers
         recommended_games = recommended_games.reset_index(drop=True)
 
+        # Add a column for the ranking that starts from 1
+        recommended_games.index = recommended_games.index + 1
+        recommended_games.index.name = "Rank"
+
         # Display the recommended games
         st.write(f"Since you searched for '{closest_game}', here are some similar games:")
         st.table(recommended_games)
@@ -104,6 +108,10 @@ if game:
 
             # Reset the index to remove the original index numbers
             recommended_games = recommended_games.reset_index(drop=True)
+
+            # Add a column for the ranking that starts from 1
+            recommended_games.index = recommended_games.index + 1
+            recommended_games.index.name = "Rank"
 
             # Display the recommended games
             st.write(f"Since you searched for '{closest_game}', here are some similar games:")
