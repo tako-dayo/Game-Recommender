@@ -17,9 +17,17 @@ df1 = df[['name', 'game_description', 'original_price']]
 # Delete missing values
 df2 = pd.DataFrame(df1.dropna())
 
+# Remove rows where 'game_description' becomes empty after stopwords removal
+df2['game_description'] = df2['game_description'].apply(lambda x: x if len(x.strip()) > 0 else None)
+df2 = df2.dropna(subset=['game_description'])
+
 # Create TF-IDF matrix
 tfidf = TfidfVectorizer(stop_words="english")
-tfidf_matrix = tfidf.fit_transform(df2["game_description"])
+try:
+    tfidf_matrix = tfidf.fit_transform(df2["game_description"])
+except ValueError as e:
+    st.error(f"Error: {e}")
+    st.stop()
 
 # Cosine similarity matrix
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
