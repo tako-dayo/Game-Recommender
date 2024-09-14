@@ -24,6 +24,10 @@ tfidf_matrix = tfidf.fit_transform(df2["desc_snippet"])
 # Cosine similarity matrix
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
+# Streamlit app
+st.title("🎮Description Based Recommender🎮")
+st.write("🔎 Find similar games for you based on their description 🔎")
+
 # Asking for user input via Streamlit
 game = st.text_input("Please enter a game you like:").lower()
 
@@ -89,6 +93,4 @@ if game:
         else:
             st.write(f"Sorry, no similar game was found in the dataset.")
 
-# Streamlit app
-st.title("🎮Description Based Recommender🎮")
-st.write("🔎 Find similar games for you based on their description 🔎")
+
