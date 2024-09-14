@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import difflib
 
 # Load CSV data
-path = 'steam_games.csv'
+path = 'game.csv'
 column_names = ['name', 'desc_snippet', 'languages', 'original_price']
 df = pd.read_csv(path, names=column_names, encoding='ISO-8859-1', low_memory=True)
 
