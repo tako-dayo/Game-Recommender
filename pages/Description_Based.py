@@ -57,28 +57,28 @@ if game:
 
     # Check if a difflib match was found
     if closest_game:
-    st.write(f"The closest match found is: '{closest_game}'")
+        st.write(f"The closest match found is: '{closest_game}'")
 
-    game_index = indices[closest_game]
+        game_index = indices[closest_game]
 
-    # Calculate similarity scores for the closest game
-    sim_scores = pd.DataFrame(cosine_sim[game_index], columns=["score"])
+        # Calculate similarity scores for the closest game
+        sim_scores = pd.DataFrame(cosine_sim[game_index], columns=["score"])
 
-    # Get the top 10 similar games (excluding the input game itself)
-    top_games = sim_scores.sort_values("score", ascending=False)[1:11]
+        # Get the top 10 similar games (excluding the input game itself)
+        top_games = sim_scores.sort_values("score", ascending=False)[1:11]
 
-    # Create a DataFrame of the top 10 recommended games with their similarity scores
-    recommended_games = pd.DataFrame({
-        "Game Name": df2["name"].iloc[top_games.index].values,
-        "Similarity Score": top_games["score"].values
-    })
+        # Create a DataFrame of the top 10 recommended games with their similarity scores
+        recommended_games = pd.DataFrame({
+            "Game Name": df2["name"].iloc[top_games.index].values,
+            "Similarity Score": top_games["score"].values
+        })
 
-    # Reset the index to remove the original index numbers
-    recommended_games = recommended_games.reset_index(drop=True)
+        # Reset the index to remove the original index numbers
+        recommended_games = recommended_games.reset_index(drop=True)
 
-    # Display the recommended games
-    st.write(f"Since you searched for '{closest_game}', here are some similar games:")
-    st.table(recommended_games)
+        # Display the recommended games
+        st.write(f"Since you searched for '{closest_game}', here are some similar games:")
+        st.table(recommended_games)
 
 
     else:
