@@ -1,29 +1,3 @@
-import streamlit as st
-import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import difflib
-
-# Load CSV data
-path = 'games.csv'
-column_names = ['name', 'desc_snippet', 'recent_reviews', 'all_reviews', 'release_date',
-                'popular_tags', 'game_details', 'languages', 'genre', 'game_description',
-                'mature_content', 'original_price', 'discount_price']
-df = pd.read_csv(path, names=column_names, encoding='ISO-8859-1', low_memory=True)
-
-# Selecting only relevant columns
-df1 = df[['name', 'desc_snippet', 'original_price']]
-
-# Delete missing values
-df2 = pd.DataFrame(df1.dropna())
-
-# Create TF-IDF matrix
-tfidf = TfidfVectorizer(stop_words="english")
-tfidf_matrix = tfidf.fit_transform(df2["desc_snippet"])
-
-# Cosine similarity matrix
-cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
-
 # Streamlit app
 st.title("🎮Description Based Recommender🎮")
 st.write("🔎 Find similar games for you based on their description 🔎")
@@ -67,10 +41,10 @@ if game:
         # Get the top 10 similar games (excluding the input game itself)
         top_games = sim_scores.sort_values("score", ascending=False)[1:11]
 
-        # Create a DataFrame of the top 10 recommended games with their similarity scores
+        # Create a DataFrame of the top 10 recommended games with their prices
         recommended_games = pd.DataFrame({
             "Game Name": df2["name"].iloc[top_games.index].values,
-            "Similarity Score": top_games["score"].values
+            "Price": df2["original_price"].iloc[top_games.index].values  # Pulling the price instead of the similarity score
         })
 
         # Reset the index to remove the original index numbers
@@ -96,10 +70,10 @@ if game:
             # Get the top 10 similar games (excluding the input game itself)
             top_games = sim_scores.sort_values("score", ascending=False)[1:11]
 
-            # Create a DataFrame of the top 10 recommended games with their similarity scores
+            # Create a DataFrame of the top 10 recommended games with their prices
             recommended_games = pd.DataFrame({
                 "Game Name": df2["name"].iloc[top_games.index].values,
-                "Similarity Score": top_games["score"].values
+                "Price": df2["original_price"].iloc[top_games.index].values  # Pulling the price instead of the similarity score
             })
 
             # Reset the index to remove the original index numbers
