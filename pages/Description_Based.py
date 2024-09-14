@@ -5,29 +5,21 @@ from sklearn.metrics.pairwise import cosine_similarity
 import difflib
 
 # Load CSV data
-path = 'steam_games.csv'
+path = 'games.csv'
 column_names = ['name', 'desc_snippet', 'recent_reviews', 'all_reviews', 'release_date',
                 'popular_tags', 'game_details', 'languages', 'genre', 'game_description',
                 'mature_content', 'original_price', 'discount_price']
 df = pd.read_csv(path, names=column_names, encoding='ISO-8859-1', low_memory=True)
 
 # Selecting only relevant columns
-df1 = df[['name', 'game_description', 'original_price']]
+df1 = df[['name', 'desc_snippet', 'original_price']]
 
 # Delete missing values
 df2 = pd.DataFrame(df1.dropna())
 
-# Remove rows where 'game_description' becomes empty after stopwords removal
-df2['game_description'] = df2['game_description'].apply(lambda x: x if len(x.strip()) > 0 else None)
-df2 = df2.dropna(subset=['game_description'])
-
 # Create TF-IDF matrix
 tfidf = TfidfVectorizer(stop_words="english")
-try:
-    tfidf_matrix = tfidf.fit_transform(df2["game_description"])
-except ValueError as e:
-    st.error(f"Error: {e}")
-    st.stop()
+tfidf_matrix = tfidf.fit_transform(df2["desc_snippet"])
 
 # Cosine similarity matrix
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
