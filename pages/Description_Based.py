@@ -1,3 +1,29 @@
+import streamlit as st
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import difflib
+
+# Load CSV data
+path = 'games.csv'
+column_names = ['name', 'desc_snippet', 'recent_reviews', 'all_reviews', 'release_date',
+                'popular_tags', 'game_details', 'languages', 'genre', 'game_description',
+                'mature_content', 'original_price', 'discount_price']
+df = pd.read_csv(path, names=column_names, encoding='ISO-8859-1', low_memory=True)
+
+# Selecting only relevant columns
+df1 = df[['name', 'desc_snippet', 'original_price']]
+
+# Delete missing values
+df2 = pd.DataFrame(df1.dropna())
+
+# Create TF-IDF matrix
+tfidf = TfidfVectorizer(stop_words="english")
+tfidf_matrix = tfidf.fit_transform(df2["desc_snippet"])
+
+# Cosine similarity matrix
+cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
 # Streamlit app
 st.title("🎮Description Based Recommender🎮")
 st.write("🔎 Find similar games for you based on their description 🔎")
