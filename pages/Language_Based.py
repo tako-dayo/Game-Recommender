@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 import re
 
+# Set Streamlit to a wide layout
+st.set_page_config(layout="wide")
+
+# Custom CSS to make the table wider
+st.markdown("""
+    <style>
+    .dataframe {
+        width: 100% !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Load CSV data (ensure the path is correct and CSV is accessible)
 path = 'games.csv'
 
