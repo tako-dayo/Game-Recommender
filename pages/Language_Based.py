@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import re
 
 # Load CSV data (ensure the path is correct and CSV is accessible)
 path = 'games.csv'
@@ -14,6 +15,11 @@ df1 = df[['name', 'languages', 'popular_tags', 'genre', 'original_price', 'all_r
 
 # Delete missing values
 df2 = pd.DataFrame(df1.dropna())
+
+# Clean 'all_reviews' column
+df2['all_reviews'] = df2['all_reviews'].fillna('No reviews')  # Handle missing reviews
+df2['all_reviews'] = df2['all_reviews'].apply(lambda x: re.sub(r'[^\x00-\x7F]+',' ', x))  # Remove special characters
+df2['all_reviews'] = df2['all_reviews'].apply(lambda x: x if len(x) <= 50 else x[:50] + '...')  # Truncate long reviews
 
 # Streamlit app
 st.title("🎮Game Recommender with Reviews🎮")
