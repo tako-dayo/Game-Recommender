@@ -3,7 +3,7 @@ import pandas as pd
 
 # Load CSV data (ensure the path is correct and CSV is accessible)
 path = 'games.csv'
-column_names = ['name', 'languages', 'popular_tags', 'genre', 'original_price', 'all_reviews']  # Include 'all_reviews' column
+column_names = ['name', 'desc_snippet', 'languages', 'recent_reviews', 'all_reviews', 'popular_tags', 'genre', 'original_price', ]  # Include 'all_reviews' column
 df = pd.read_csv(path, names=column_names, encoding='ISO-8859-1', low_memory=True)
 
 # Selecting only relevant columns
