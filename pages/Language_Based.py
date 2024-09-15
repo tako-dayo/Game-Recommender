@@ -25,6 +25,9 @@ df2['languages'] = df2['languages'].str.lower()
 # Add a dropdown for filtering by user reviews
 reviews_filter = st.selectbox("Select review category:", ["None", "Mostly Positive", "Very Positive", "Overwhelmingly Positive"])
 
+st.write(df2['all_reviews'].unique())
+
+
 # If the user has entered a language, proceed with the recommendation
 if language:
     # Filter games that contain the specified language
@@ -32,7 +35,8 @@ if language:
 
     # Check if a review filter was selected and apply it
     if reviews_filter != "None":
-        matching_games = matching_games[matching_games['all_reviews'].str.contains(reviews_filter, na=False)]
+        # Make sure the review filter is case-insensitive
+        matching_games = matching_games[matching_games['all_reviews'].str.contains(reviews_filter, case=False, na=False)]
     
     # Display the top 20 games that match the language and review filter
     if not matching_games.empty:
