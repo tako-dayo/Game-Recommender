@@ -40,11 +40,14 @@ if language:
     
     # Display results
     if not matching_games.empty:
+        matching_games = matching_games.reset_index(drop=True)  # Reset index to start from 0
+        matching_games.index += 1  # Set index to start from 1
+        
         if reviews_filter == "None":
             st.write(f"Games that support the language '{language}':")
-            st.table(matching_games[['name']].head(20))  # Display only the name if no review filter
+            st.table(matching_games[['name']].head(10))  # Display only the name if no review filter
         else:
             st.write(f"Games that support the language '{language}' with '{reviews_filter}' reviews:")
-            st.table(matching_games[['name', 'languages', 'all_reviews']].head(20))  # Display full info if review filter is applied
+            st.table(matching_games[['name', 'languages', 'all_reviews']].head(10))  # Display full info if review filter is applied
     else:
         st.write(f"No games found that support the language '{language}' with '{reviews_filter}' reviews.")
